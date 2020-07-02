@@ -28,4 +28,20 @@ class Article:
     """The `Article` class you need to write for the qualifier."""
 
     def __init__(self, title: str, author: str, publication_date: datetime.datetime, content: str):
-        pass
+        #Initialize variables
+        self.title = title
+        self.author = author
+        self.publication_date = publication_date
+        self.content = content
+
+        self.iso_datetime = self.publication_date.isoformat()
+
+    def __repr__(self):
+        '''
+        Format:
+        <Article title="Title" author='Author' publication_date='ISOTimeStamp'>
+        '''
+
+        return '<Article title="{self.title}" author=\'{self.author}\' publication_date=\'{self.iso_datetime}\'>'.format(self=self)
+
+    de
