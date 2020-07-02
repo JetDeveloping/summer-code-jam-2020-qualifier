@@ -44,4 +44,27 @@ class Article:
 
         return '<Article title="{self.title}" author=\'{self.author}\' publication_date=\'{self.iso_datetime}\'>'.format(self=self)
 
-    de
+    def __len__(self):
+        return len(self.content)
+
+    def short_introduction(self, n_characters):
+        cut_string = self.content[:n_characters + 1]
+        last_space = cut_string.rindex(' ')
+
+        try:
+            last_line_break = cut_string.rindex('\n')
+        except:
+            last_line_break = 0
+
+        if last_space > last_line_break:
+            last_char = last_space
+
+        else:
+            last_char = last_line_break
+
+        print('Chars {0} Last Index {1}'.format(n_characters, last_char))
+
+        return self.content[:last_char]
+
+
+        
