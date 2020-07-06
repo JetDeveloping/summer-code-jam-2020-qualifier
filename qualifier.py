@@ -15,7 +15,8 @@ Important notes for submission:
 """
 import datetime
 import typing
-
+import re
+import collections
 
 class ArticleField:
     """The `ArticleField` class for the Advanced Requirements."""
@@ -36,6 +37,19 @@ class Article:
 
         self.iso_datetime = self.publication_date.isoformat()
 
+    def clear_list(self, string):
+        string = re.split(',|_|-|!| |\'|\n', string.lower())
+
+        for char in string.copy():
+            if char == '':
+                string.remove(char)
+
+            elif '.' in char:
+                string[string.index(char)] = char.replace('.', '')
+
+        return string
+
+
     def __repr__(self):
         '''
         Format:
@@ -44,7 +58,7 @@ class Article:
 
         return '<Article title="{self.title}" author=\'{self.author}\' publication_date=\'{self.iso_datetime}\'>'.format(self=self)
 
-    def __len__(self):
+    def __len__(self):  
         return len(self.content)
 
     def short_introduction(self, n_characters):
@@ -62,9 +76,11 @@ class Article:
         else:
             last_char = last_line_break
 
-        print('Chars {0} Last Index {1}'.format(n_characters, last_char))
 
         return self.content[:last_char]
 
+    def most_common_words(self, num):
+        char_list = self.clear_list(self.content)
+        return dict(collections.Counter(char_list).most_common(num))
 
-        
+
