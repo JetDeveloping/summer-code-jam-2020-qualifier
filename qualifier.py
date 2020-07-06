@@ -17,6 +17,7 @@ import datetime
 import typing
 import re
 import collections
+import itertools
 
 class ArticleField:
     """The `ArticleField` class for the Advanced Requirements."""
@@ -27,9 +28,11 @@ class ArticleField:
 
 class Article:
     """The `Article` class you need to write for the qualifier."""
+    unique_id = itertools.count(0)
 
     def __init__(self, title: str, author: str, publication_date: datetime.datetime, content: str):
         #Initialize variables
+        self.id = next(self.unique_id)
         self.title = title
         self.author = author
         self.publication_date = publication_date
