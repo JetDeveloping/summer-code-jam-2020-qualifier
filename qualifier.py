@@ -1,18 +1,3 @@
-"""
-Use this file to write your solution for the Summer Code Jam 2020 Qualifier.
-
-Important notes for submission:
-
-- Do not change the names of the two classes included below. The test suite we
-  will use to test your submission relies on existence these two classes.
-
-- You can leave the `ArticleField` class as-is if you do not wish to tackle the
-  advanced requirements.
-
-- Do not include "debug"-code in your submission. This means that you should
-  remove all debug prints and other debug statements before you submit your
-  solution.
-"""
 import datetime
 import typing
 import re
@@ -38,11 +23,13 @@ class Article:
         self.title = title
         self.author = author
         self.publication_date = publication_date
-        self.content = content
+        self._content = content
 
         #Create the ISO Datetime String
         self.iso_datetime = self.publication_date.isoformat()
+        self.last_edited = None
 
+        self.compare_datetime = self.publication_date.timestamp()
 
     
     def clear_list(self, string): #Function to split list into string and remove any special characters
@@ -67,11 +54,11 @@ class Article:
         return '<Article title="{self.title}" author=\'{self.author}\' publication_date=\'{self.iso_datetime}\'>'.format(self=self) #Returns our text (using format())
 
     def __len__(self):  #Len function to return the length of content
-        return len(self.content) 
+        return len(self._content) 
 
     def short_introduction(self, n_characters): #Function to return a short introduction
 
-        cut_string = self.content[:n_characters + 1] #Cut the original string based on our original number (n_characters)
+        cut_string = self._content[:n_characters + 1] #Cut the original string based on our original number (n_characters)
         last_space = cut_string.rindex(' ') #Gets the index of the last space
 
         try: #Check to see if there is a line break
@@ -87,13 +74,36 @@ class Article:
             last_char = last_line_break
 
 
-        return self.content[:last_char] #Cuts the content based on where the last space or linebreak was
+        return self._content[:last_char] #Cuts the content based on where the last space or linebreak was
 
     def most_common_words(self, num): #Function to return a dictionary of the most common words
-        char_list = self.clear_list(self.content) #Splits the article content into list based on special characters that it finds
+        char_list = self.clear_list(self._content) #Splits the article content into list based on special characters that it finds
         return dict(collections.Counter(char_list).most_common(num)) #Returns a dictionary of the most common words
 
 
+    @property
+    def content(self):
+      return self._content
+
+    @content.setter
+    def content(self, new_content):
+      self._content = new_content
+      self.last_edited = datetime.datetime.now()
+
+    def __eq__(self, other_article):
+      if self.compare_datetime == other_article.compare_datetime:
+        return True
+
+      else:
+        return False
+
+    def __gt__(self, other_article):
+      if self.compare_datetime > other_article.compare_datetime:
+        return True
+
+      else:
+        return False
+
+
+
         
-
-
