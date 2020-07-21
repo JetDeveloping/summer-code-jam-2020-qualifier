@@ -22,7 +22,7 @@ class Article:
         #Define the Article's Attributes (based on the args)
         self.title = title
         self.author = author
-        self.public ation_date = publication_date
+        self.publication_date = publication_date
         self._content = content
 
         #Create the ISO Datetime String
@@ -103,3 +103,16 @@ class Article:
 
       else:
         return False
+
+
+
+        
+
+
+
+
+
+
+      
+
+      
