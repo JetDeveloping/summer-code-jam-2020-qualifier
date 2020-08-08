@@ -110,6 +110,8 @@ class T200IntermediateTests(unittest.TestCase):
             self.assertTrue(hasattr(article, "id"), msg="`Article` object has no `id` attribute")
             self.assertEqual(expected_id, article.id)
 
+            print('The IDs are ' + str(article.id))
+
     @mock.patch("qualifier.datetime")
     def test_202_last_edited(self, local_datetime):
         """last_edited attribute should update to the current time when the content changes."""

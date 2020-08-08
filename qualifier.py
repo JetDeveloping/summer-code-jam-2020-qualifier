@@ -13,11 +13,14 @@ Important notes for submission:
   remove all debug prints and other debug statements before you submit your
   solution.
 """
-import datetime
+import datetime #For dates
 import typing
-import re
-import collections
-import itertools
+
+import re #For splitting strings
+import collections #For sorting
+import itertools #For sequential IDs
+import random
+
 
 class ArticleField:
     """The `ArticleField` class for the Advanced Requirements."""
@@ -42,20 +45,6 @@ class Article:
 
         #Create the ISO Datetime String
         self.iso_datetime = self.publication_date.isoformat()
-
-
-    
-    def clear_list(self, string): #Function to split list into string and remove any special characters
-        string = re.split(',|_|-|!| |\'|\n', string.lower()) #Split the string based on any special characters
-
-        for char in string.copy(): #Iterate over a copy of the string (so that you can remove items)
-            if char == '': #We cannot check for empty strings in the split function
-                string.remove(char) #If it is an empty string, remove it from the original list
-
-            elif '.' in char: #'.' (period) would not work with re.split, so I need to check it individually
-                string[string.index(char)] = char.replace('.', '') #remove the '.'
-        'I did not use enumerate() because I removing items from one list and iterating over a copy of another list'
-        return string #Return our new list
 
 
     def __repr__(self): #Repr Function to return a specific format
@@ -93,7 +82,32 @@ class Article:
         char_list = self.clear_list(self.content) #Splits the article content into list based on special characters that it finds
         return dict(collections.Counter(char_list).most_common(num)) #Returns a dictionary of the most common words
 
+'''    @property
+    def content(self):
+        return self.content
+
+    @content.setter
+    def content(self, new_value):
+        self.content = new_value
+        self.last_edited = datetime.datetime.now()'''
+
 
         
+
+x = Article(
+    title = "The emperor's new clothes",
+    author = "Hans Christian Andersen",
+    content = "'But he has nothing at all on!' at last cried out all the people.",
+    publication_date = datetime.datetime(1837, random.randint(1, 12), random.randint(1, 7), 12, 15, 0)
+)
+
+y = Article(
+    title = "The emperor's new clothes",
+    author = "Hans Christian Andersen",
+    content = "'But he has nothing at all on!' at last cried out all the people.",
+    publication_date = datetime.datetime(1837, random.randint(1, 12), random.randint(1, 7), 12, 15, 0)
+)
+
+
 
 
