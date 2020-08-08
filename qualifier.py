@@ -21,6 +21,8 @@ import collections #For sorting
 import itertools #For sequential IDs
 import random
 
+typo;
+
 
 class ArticleField:
     """The `ArticleField` class for the Advanced Requirements."""
